@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Силіконові кільця-маркери для бокалів</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f2ea;
+      --ink: #1f1b18;
+      --muted: #655c55;
+      --accent: #ff7a59;
+      --accent-2: #0f8f9c;
+      --card: #fff;
+      --stroke: rgba(0,0,0,0.08);
+      --shadow: 0 16px 46px rgba(0,0,0,0.12);
+      --radius: 16px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Manrope", system-ui, sans-serif;
+      background: linear-gradient(145deg, #f6f2ea, #f0ebe2);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 24px 18px 70px; }
+    header { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--stroke); box-shadow: var(--shadow); background: linear-gradient(120deg, rgba(15,143,156,0.14), rgba(255,122,89,0.10)); }
+    .logo-block { display: grid; gap: 8px; align-items: start; }
+    .logo { display: grid; gap: 4px; font-family: "Space Grotesk", "Manrope", sans-serif; font-weight: 700; }
+    .logo small { color: var(--muted); font-weight: 600; }
+    .logo-img { width: 90px; max-width: 100%; height: auto; display: block; border-radius: 12px; }
+    .badges { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .pill { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--stroke); background: var(--card); font-weight: 700; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+    section { background: var(--card); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-top: 18px; }
+    h1, h2 { margin: 0 0 10px; font-family: "Space Grotesk", "Manrope", sans-serif; letter-spacing: -0.01em; }
+    p { margin: 0 0 12px; color: var(--muted); }
+    .hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: center; background: linear-gradient(120deg, rgba(255,255,255,0.98), rgba(255,249,245,0.92)); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: rgba(255,122,89,0.12); color: #b44221; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; font-size: 13px; }
+    .lead { font-size: 17px; }
+    .price { display: inline-flex; gap: 10px; align-items: baseline; font-weight: 800; font-size: 26px; }
+    .price .old { text-decoration: line-through; color: var(--muted); font-size: 17px; font-weight: 600; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { padding: 8px 12px; border-radius: 10px; border: 1px solid var(--stroke); background: #fff; font-weight: 700; color: var(--ink); }
+    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 18px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 160ms ease; }
+    .btn-primary { background: linear-gradient(120deg, #ff8a64, #ff6f52); color: #1d0f07; box-shadow: 0 14px 34px rgba(255,112,82,0.35); }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost { background: var(--card); border: 1px solid var(--stroke); color: var(--ink); }
+    .hero-visual { position: relative; min-height: 320px; border-radius: var(--radius); overflow: hidden; background: #111; box-shadow: var(--shadow); }
+    .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 10%, rgba(0,0,0,0.6) 90%); }
+    .badge-stack { position: absolute; left: 14px; bottom: 14px; display: grid; gap: 8px; z-index: 2; }
+    .mini-badge { display: inline-flex; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.9); font-weight: 700; box-shadow: 0 12px 30px rgba(0,0,0,0.18); }
+    .grid { display: grid; gap: 12px; }
+    .cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .cols-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .card { padding: 14px; border-radius: 14px; border: 1px solid var(--stroke); background: #fff; box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+    .swatch { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--stroke); background: #fff; font-weight: 700; }
+    .dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.12); }
+    .cta-block { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: center; border: 1px dashed rgba(0,0,0,0.12); background: linear-gradient(120deg, rgba(15,143,156,0.08), rgba(255,122,89,0.14)); }
+    form.order-form { display: grid; gap: 12px; padding: 14px; border-radius: 14px; border: 1px solid var(--stroke); background: #fff; box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+    .order-form label { display: grid; gap: 6px; font-weight: 700; }
+    .order-form input { padding: 12px; border-radius: 10px; border: 1px solid var(--stroke); font-size: 15px; font-family: inherit; transition: all 160ms ease; }
+    .order-form input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(255,122,89,0.28); }
+    .toast { position: fixed; bottom: 16px; right: 16px; padding: 14px 16px; border-radius: 12px; background: #1b1b1b; color: #fff; box-shadow: 0 18px 40px rgba(0,0,0,0.24); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 160ms ease, transform 160ms ease; z-index: 20; max-width: 320px; line-height: 1.5; }
+    .toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    footer { margin-top: 14px; text-align: center; color: var(--muted); font-size: 13px; }
+    @media (max-width: 720px) { .cta-row { flex-direction: column; } header { align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+        <header>
+      <div class="logo-block">
+        <div class="logo">
+          <span>L&K_ShopUA</span>
+          <small>Кільця-маркери</small>
+        </div>
+        <img class="logo-img" src="images/color.png" alt="Кольори маркерів">
+      </div>
+      <div class="badges">
+        <span class="pill">Доставка 1-2 дні</span>
+        <span class="pill">Оплата при отриманні</span>
+        <span class="pill">12 кольорів у наборі</span>
+        <span class="pill">12 кольорів у наборі</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="hero">
+        <div>
+          <div class="eyebrow">Знижка -18% до кінця тижня</div>
+          <p class="lead">М’які кільця на ніжку келиха: гості миттєво розрізняють свої бокали, кільця не ковзають, не дряпають скло і служать роками.</p>
+          <div class="price"><span>259 грн</span><span class="old">329 грн</span></div>
+          <div class="chips" style="margin:10px 0;">
+            <span class="chip">Діаметр 1.7 см — підходить більшості келихів</span>
+            <span class="chip">Силікон, що не залишає слідів</span>
+            <span class="chip">12 різних кольорів</span>
+          </div>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#order">Замовити набір</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Кольорові кільця-маркери">
+          <img src="images/Marker1.JPG" alt="Кольорові кільця-маркери на бокалах">
+          <div class="overlay"></div>
+          <div class="badge-stack">
+          </div>
+        </div>
+      </section>
+
+      <section id="benefits">
+        <h2>Чому кільця-маркери вирішують хаос на вечірках</h2>
+        <div class="grid cols-4">
+          <div class="card"><strong>Миттєва ідентифікація</strong><p>12 різних кольорів — гість одразу впізнає свій келих.</p></div>
+          <div class="card"><strong>Не дряпає скло</strong><p>М’який силікон без запаху, не лишає слідів на ніжці келиха.</p></div>
+          <div class="card"><strong>Тримається міцно</strong><p>Легка натяжка 1.7 см фіксує кільце, воно не ковзає й не сповзає.</p></div>
+          <div class="card"><strong>Багаторазові</strong><p>Не бояться миття, легко знімаються, зберігайте у пакетику та використовуйте знову.</p></div>
+        </div>
+      </section>
+
+      <section id="kit">
+        <h2>Що в наборі</h2>
+        <div class="grid cols-3">
+          <div class="card"><strong>12 силіконових кілець</strong><p>Різнокольорові: рожевий, малиновий, фіолетовий, синій, зелений, жовтий, помаранчевий тощо.</p></div>
+          <div class="card"><strong>Пакетик для зберігання</strong><p>Зручно тримати в барній шухляді чи сумці — кільця не губляться.</p></div>
+          <div class="card"><strong>Поради по використанню</strong><p>Як швидко роздати гостям, комбінувати кольори та не створювати черги.</p></div>
+        </div>
+      </section>
+      <section id="delivery">
+        <h2>Доставка та оплата</h2>
+        <div class="grid cols-3">
+          <div class="card"><strong>Коли відправляємо</strong><p>В день замовлення або на наступний. Нова Пошта / Укрпошта.</p></div>
+          <div class="card"><strong>Оплата</strong><p>Карткою онлайн або післяплата при отриманні. Без передоплат — за бажанням.</p></div>
+          <div class="card"><strong>Гарантія</strong><p>Якщо не підійде — повертаємо кошти протягом 14 днів. Просто напишіть нам.</p></div>
+        </div>
+      </section>
+
+      <section id="order" class="cta-block">
+        <div>
+          <h2>Забронюйте набір сьогодні</h2>
+          <p style="margin-bottom:10px;">Залиште контакти — передзвонимо за 10 хвилин, уточнимо кількість і адресу. До оплати нічого не знімаємо.</p>
+          <div class="chips">
+            <span class="chip">259 грн за набір</span>
+            <span class="chip">12 кольорів + пакетик для зберігання</span>
+          </div>
+        </div>
+        <form class="order-form" data-order-form>
+          <input type="hidden" name="product" value="Маркери">
+          <label>
+            <span>Ім'я</span>
+            <input type="text" name="name" placeholder="Олексій" required>
+          </label>
+          <label>
+            <span>Телефон</span>
+            <input type="tel" name="phone" placeholder="+380..." inputmode="tel" autocomplete="tel" pattern="\+?[0-9\s\-()]{7,}" required>
+          </label>
+          <button class="btn btn-primary" type="submit">Замовити зі знижкою</button>
+          <small style="color:var(--muted);">Натискаючи, ви погоджуєтесь на обробку даних лише для оформлення замовлення.</small>
+        </form>
+      </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const ORDER_ENDPOINT = 'http://localhost:8000/order'; // замініть на свій домен бекенду при деплої
+
+    const toast = document.getElementById('toast');
+    let toastTimer = null;
+    const showToast = (text) => {
+      if (!toast) return;
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+    };
+
+    const sendOrder = async (name, phone, product) => {
+      const payload = new FormData();
+      payload.append('name', name);
+      payload.append('phone', phone);
+      payload.append('product', product || 'кільця');
+      const res = await fetch(ORDER_ENDPOINT, { method: 'POST', body: payload });
+      return res.ok;
+    };
+
+    const attachOrderForm = (form) => {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const name = (formData.get('name') || '').toString().trim() || 'клієнт';
+        const phone = (formData.get('phone') || '').toString().trim();
+        const product = (formData.get('product') || 'кільця').toString();
+        if (!phone) {
+          showToast('Вкажіть номер телефону, щоб ми могли вам передзвонити.');
+          return;
+        }
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Відправляємо...'; }
+        let ok = false;
+        try { ok = await sendOrder(name, phone, product); }
+        catch (err) { console.error('Order failed', err); }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Замовити зі знижкою'; }
+        form.reset();
+        if (ok) {
+          showToast(`Дякуємо, ${name}! Ми перетелефонуємо на ${phone}.`);
+        } else {
+          showToast('Заявку записали, але не вдалося відправити на сервер. Перевірте бекенд/мережу.');
+        }
+      });
+    };
+
+    document.querySelectorAll('[data-order-form]').forEach(attachOrderForm);
+  </script>
+</body>
+</html>
+
