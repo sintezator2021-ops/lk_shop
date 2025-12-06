@@ -95,7 +95,8 @@
     .card { padding: 14px; border-radius: 14px; border: 1px solid var(--stroke); background: var(--panel-bg); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
     .step-flow { display: grid; gap: 12px; margin-top: 12px; }
     .step-item { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: var(--panel-bg); color: var(--ink); box-shadow: var(--shadow); border: 1px solid var(--stroke); }
-    .step-icon { width: 56px; height: 56px; border-radius: 14px; background: rgba(255,255,255,0.92); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: var(--accent-2); box-shadow: 0 10px 22px rgba(0,0,0,0.12); }
+    .step-icon { width: 56px; height: 56px; border-radius: 14px; background: rgba(255,255,255,0.92); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: var(--accent-2); box-shadow: 0 10px 22px rgba(0,0,0,0.12); transition: transform 200ms ease; }
+    .step-icon.playing { transform: scale(1.2); }
     .step-icon img { width: 32px; height: 32px; object-fit: contain; }
     .step-body { display: grid; gap: 4px; }
     .step-body strong { color: var(--ink); font-size: 16px; }
@@ -170,28 +171,28 @@
         <h2>Як відбувається замовлення</h2>
         <div class="step-flow">
           <div class="step-item">
-            <div class="step-icon"><img src="images/check1.png" alt="Залишайте замовлення"></div>
+            <div class="step-icon"><img src="images/check1.png" data-static="images/check1.png" data-gif="images/check1.gif" data-gif-duration="2000" alt="Залишайте замовлення"></div>
             <div class="step-body">
               <strong>Залишайте замовлення</strong>
               <p>Через форму на сайті або у месенджері — як зручно саме вам.</p>
             </div>
           </div>
           <div class="step-item">
-            <div class="step-icon"><img src="images/support.png" alt="Менеджер зв'яжеться з вами"></div>
+            <div class="step-icon"><img src="images/support.png" data-static="images/support.png" data-gif="images/suport.gif" data-gif-duration="2000" alt="Менеджер зв'яжеться з вами"></div>
             <div class="step-body">
               <strong>Менеджер зв'яжеться з вами</strong>
               <p>Уточнимо деталі, спосіб доставки та підтвердимо наявність.</p>
             </div>
           </div>
           <div class="step-item">
-            <div class="step-icon"><img src="images/truck.png" alt="Ми відправимо посилку"></div>
+            <div class="step-icon"><img src="images/truck.png" data-static="images/truck.png" data-gif="images/truck.gif" data-gif-duration="2000" alt="Ми відправимо посилку"></div>
             <div class="step-body">
               <strong>Ми відправимо посилку</strong>
               <p>Нова Пошта чи Укрпошта — відправляємо цього ж або наступного дня.</p>
             </div>
           </div>
           <div class="step-item">
-            <div class="step-icon"><img src="images/check2.png" alt="Отримуйте та оплачуйте"></div>
+            <div class="step-icon"><img src="images/check2.png" data-static="images/check2.png" data-gif="images/check2.gif" data-gif-duration="2000" alt="Отримуйте та оплачуйте"></div>
             <div class="step-body">
               <strong>Отримуйте та оплачуйте</strong>
               <p>Оплата при отриманні або онлайн — без передоплат, якщо не потрібно.</p>
@@ -229,6 +230,7 @@
   <script>
     const STOCK_LEFT = 10;
     const ORDER_ENDPOINT = 'https://sercer-epai.onrender.com/order'; // замініть на свій домен бекенду при деплої
+    const BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
     const toast = document.getElementById('toast');
     let toastTimer = null;
@@ -316,10 +318,64 @@
       });
     };
 
+    const initGifSequence = () => {
+      const delivery = document.getElementById('delivery');
+      if (!delivery) return;
+      const imgs = Array.from(delivery.querySelectorAll('.step-icon img'));
+      if (!imgs.length) return;
+      let active = false;
+      let timers = [];
+      const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+      const resetToStatic = () => {
+        imgs.forEach((img) => {
+          const staticSrc = img.getAttribute('data-static');
+          if (staticSrc) img.src = staticSrc;
+          img.parentElement?.classList.remove('playing');
+        });
+      };
+      const playFrom = (idx) => {
+        if (!active) return;
+        if (idx >= imgs.length) {
+          timers.push(setTimeout(() => { if (active) playFrom(0); }, 200));
+          return;
+        }
+        const img = imgs[idx];
+        const gifSrc = img.getAttribute('data-gif');
+        const staticSrc = img.getAttribute('data-static');
+        const duration = parseInt(img.getAttribute('data-gif-duration') || '2000', 10);
+        if (!gifSrc) return playFrom(idx + 1);
+        imgs.forEach((i) => i.parentElement?.classList.remove('playing'));
+        img.parentElement?.classList.add('playing');
+        img.src = BLANK_GIF;
+        void img.offsetHeight; // force reflow
+        img.src = gifSrc;
+        timers.push(setTimeout(() => {
+          if (staticSrc) img.src = staticSrc;
+          img.parentElement?.classList.remove('playing');
+          playFrom(idx + 1);
+        }, duration));
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (active) return;
+            active = true;
+            playFrom(0);
+          } else {
+            active = false;
+            clearTimers();
+            resetToStatic();
+          }
+        });
+      }, { threshold: 0.35 });
+      observer.observe(delivery);
+    };
+
     renderStock();
     document.querySelectorAll('[data-order-form]').forEach(attachOrderForm);
     initModal();
     initScrollLinks();
+    initGifSequence();
   </script>
 </body>
 </html>
