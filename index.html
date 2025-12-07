@@ -293,6 +293,7 @@
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Замовити зі знижкою'; }
         form.reset();
         if (ok) {
+          fbq('track', 'Lead');
           showToast(`Дякуємо, ${name}! Ми перетелефонуємо на ${phone}.`);
         } else {
           showToast('Заявку записали, але не вдалося відправити на сервер. Перевірте бекенд/мережу.');
