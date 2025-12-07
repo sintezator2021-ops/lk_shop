@@ -247,7 +247,7 @@
 
   <script>
     const STOCK_LEFT = 10;
-    const ORDER_ENDPOINT = '178.158.244.57:9999'; // замініть на свій домен бекенду при деплої
+    const ORDER_ENDPOINT = 'https://sercer-epai.onrender.com/order'; // замініть на свій домен бекенду при деплої
     const BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
     const toast = document.getElementById('toast');
@@ -285,7 +285,7 @@
           showToast('Вкажіть номер телефону, щоб ми могли вам передзвонити.');
           return;
         }
-
+        
         if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Відправляємо...'; }
         let ok = false;
         try { ok = await sendOrder(name, phone, product); }
