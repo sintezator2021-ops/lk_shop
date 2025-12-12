@@ -143,7 +143,7 @@ src="https://www.facebook.com/tr?id=1399829308154119&ev=PageView&noscript=1"/>
       <div class="logo-block">
         <div class="logo">
           <span>L&K_ShopUA</span>
-          <small>Кільця маркери</small>
+          <small>Маркери для бокалів 12шт</small>
         </div>
         <img class="logo-img" src="images/color.png" alt="Кольори маркерів">
       </div>
@@ -235,7 +235,7 @@ src="https://www.facebook.com/tr?id=1399829308154119&ev=PageView&noscript=1"/>
         </label>
         <label>
           <span>Телефон</span>
-          <input type="tel" name="phone" placeholder="+380..." inputmode="tel" autocomplete="tel" pattern="\+?[0-9\s\-()]{7,}" required>
+          <input type="tel" name="phone" placeholder="+380..." inputmode="tel" autocomplete="tel" pattern="[0-9+()\- ]{7,}" required>
         </label>
         <button class="btn btn-primary" type="submit">Замовити зі знижкою</button>
       </form>
@@ -246,7 +246,7 @@ src="https://www.facebook.com/tr?id=1399829308154119&ev=PageView&noscript=1"/>
 
   <script>
     const STOCK_LEFT = 10;
-    const ORDER_ENDPOINT = 'https://server.lkshop.website/order';
+    const ORDER_ENDPOINT = 'https://api.lkshop.website/order';
     const BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
     const toast = document.getElementById('toast');
@@ -260,13 +260,19 @@ src="https://www.facebook.com/tr?id=1399829308154119&ev=PageView&noscript=1"/>
     };
 
     const sendOrder = async (name, phone, product) => {
-      const payload = new FormData();
-      payload.append('name', name);
-      payload.append('phone', phone);
-      payload.append('product', product || 'кільця');
-      const res = await fetch(ORDER_ENDPOINT, { method: 'POST', body: payload });
-      return res.ok;
-    };
+  const res = await fetch(ORDER_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name,
+      phone,
+      product: product || 'кільця'
+    })
+  });
+  return res.ok;
+};
 
     const renderStock = () => {
       document.querySelectorAll('[data-stock]').forEach((node) => { node.textContent = STOCK_LEFT; });
